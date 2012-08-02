@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQuery HTML5 Placeholder plugin - https://github.com/thehappybit/jQuery-HTML5-placeholder-plugin
  *
  * Adds cross-browser support for the HTML5 placeholder attribute functionality.
@@ -41,7 +41,7 @@
 			'attrName': 'placeholder'
 		};
 		parameters = $.extend(parameters, options);
-		
+
 		// Test for native browser's placeholder support
 		var test = document.createElement('input');
 		if( parameters.attrName == 'placeholder' && 'placeholder' in test )
@@ -70,8 +70,19 @@
 					else
 						input.blurred = true;
 				})
+				.keyup(function(e){
+					if(e.keyCode === 13){
+						if( input.val() == "" ) {
+							input.blurred = false;
+							input.val(placeholderText);
+							input.addClass(parameters.className);
+						}
+						else
+							input.blurred = true;
+					}
+				})
 				.trigger('blur');
-				
+
 			// Ensuring not to submit placeholder data
 			form
 				.submit(function() {
@@ -79,5 +90,5 @@
 						input.val("");
 				});
 		});
-	}
+	};
 })(jQuery);
